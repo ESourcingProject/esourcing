@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  esourcingdb:
+    image: mongo
+  esourcingsoln.products:
+    image: ${DOCKER_REGISTRY-}esourcingsolnproducts
+    build:
+      context: .
+      dockerfile: ESourcingSoln.Products/Dockerfile

@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  esourcingdb:
+    container_name: esourcingdb
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
+    ports:
+      - "27017:27017"
+        
+  esourcingsoln.products:
+    container_name: esourcingproducts
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ProductDatabaseSettings:ConnectionString=mongodb://esourcingdb:27017"
+    depends_on:
+      - esourcingdb
+    volumes:
+      - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
+    ports:
+      - "8000:80"
+    
