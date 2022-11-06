@@ -38,7 +38,7 @@ namespace ESourcingSoln.Sourcing.Repository
             return await _context.Auctions.Find(a => true).ToListAsync();
         }
 
-        public async Task<IEnumerable<Auction>> GetProductsByName(string name)
+        public async Task<IEnumerable<Auction>> GetAuctionsByName(string name)
         {
             var filter = Builders<Auction>.Filter.ElemMatch(m => m.Name, name);
             return await _context.Auctions.Find(filter).ToListAsync();
