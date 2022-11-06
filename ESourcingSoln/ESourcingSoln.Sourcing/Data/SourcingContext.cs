@@ -14,7 +14,10 @@ namespace ESourcingSoln.Sourcing.Data
 
             Auctions = database.GetCollection<Auction>(nameof(Auction));
             AuctionContextSeed.SeedData(Auctions);
+
+            Bids = database.GetCollection<Bid>(nameof(Bid));
         }
         public IMongoCollection<Auction> Auctions { get; set; }
+        public IMongoCollection<Bid> Bids { get; set; }
     }
 }
