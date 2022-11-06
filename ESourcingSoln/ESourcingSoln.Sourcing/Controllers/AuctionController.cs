@@ -8,8 +8,8 @@ namespace ESourcingSoln.Sourcing.Controllers
     [ApiController,Route("/api/v1/[controller]")]
     public class AuctionController : ControllerBase
     {
-        private readonly ISourcingRepository _repository;
-        public AuctionController(ISourcingRepository repository)
+        private readonly IAuctionRepository _repository;
+        public AuctionController(IAuctionRepository repository)
         {
             _repository = repository;
         }

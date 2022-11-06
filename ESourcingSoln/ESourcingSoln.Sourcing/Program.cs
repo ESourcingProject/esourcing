@@ -14,7 +14,7 @@ builder.Services.AddSingleton<ISourcingDatabaseSettings>(x => x.GetRequiredServi
 
 #region Project Dependencies
 builder.Services.AddTransient<ISourcingContext, SourcingContext>();
-builder.Services.AddTransient<ISourcingRepository, SourcingRepository>();
+builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
 #endregion
 
 

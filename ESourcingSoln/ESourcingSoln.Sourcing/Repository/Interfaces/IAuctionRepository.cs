@@ -2,7 +2,7 @@
 
 namespace ESourcingSoln.Sourcing.Repository.Interfaces
 {
-    public interface ISourcingRepository
+    public interface IAuctionRepository
     {
         Task<IEnumerable<Auction>> GetAuctions();
         Task<Auction> GetAuction(string id);
