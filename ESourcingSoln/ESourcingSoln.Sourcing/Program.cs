@@ -3,7 +3,10 @@ using ESourcingSoln.Sourcing.Data.Interfaces;
 using ESourcingSoln.Sourcing.Repository;
 using ESourcingSoln.Sourcing.Repository.Interfaces;
 using ESourcingSoln.Sourcing.Settings;
+using EventBusMQ.Producer;
+using EventBusMQ;
 using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,39 @@ builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
 builder.Services.AddTransient<IBidRepository, BidRepository>();
 #endregion
 
+#region EventBus
+
+builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+{
+    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+
+    var factory = new ConnectionFactory()
+    {
+        HostName = builder.Configuration["EventBus:HostName"]
+    };
+
+    if (!string.IsNullOrWhiteSpace(builder.Configuration["EventBus:UserName"]))
+    {
+        factory.UserName = builder.Configuration["EventBus:UserName"];
+    }
+
+    if (!string.IsNullOrWhiteSpace(builder.Configuration["EventBus:Password"]))
+    {
+        factory.UserName = builder.Configuration["EventBus:Password"];
+    }
+
+    var retryCount = 5;
+    if (!string.IsNullOrWhiteSpace(builder.Configuration["EventBus:RetryCount"]))
+    {
+        retryCount = int.Parse(builder.Configuration["EventBus:RetryCount"]);
+    }
+
+    return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
+});
+
+builder.Services.AddSingleton<EventBusRabbitMQProducer>();
+
+#endregion
 
 // Add services to the container.
 

@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESourcingSoln.Sourcing", "E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{7B112875-19C0-4B49-888A-8A0328A44436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESourcingSoln.Account", "ESourcingSoln.Account\ESourcingSoln.Account.csproj", "{182B64ED-5D9A-4FE3-B213-77474C6F60FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESourcingSoln.Account", "ESourcingSoln.Account\ESourcingSoln.Account.csproj", "{182B64ED-5D9A-4FE3-B213-77474C6F60FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusMQ", "EventBusMQ\EventBusMQ\EventBusMQ.csproj", "{1F8F790C-54CB-45A9-90A6-A6090F00077A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{182B64ED-5D9A-4FE3-B213-77474C6F60FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182B64ED-5D9A-4FE3-B213-77474C6F60FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182B64ED-5D9A-4FE3-B213-77474C6F60FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8F790C-54CB-45A9-90A6-A6090F00077A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8F790C-54CB-45A9-90A6-A6090F00077A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8F790C-54CB-45A9-90A6-A6090F00077A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8F790C-54CB-45A9-90A6-A6090F00077A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{2F8F3AEF-B274-4747-B763-2FB99FEEF85F} = {0C0396A8-73FC-41C2-810D-9A12D5DD66EB}
 		{7B112875-19C0-4B49-888A-8A0328A44436} = {7B23B1AA-8639-4106-9E8B-766FF0092ADE}
 		{182B64ED-5D9A-4FE3-B213-77474C6F60FF} = {7B112875-19C0-4B49-888A-8A0328A44436}
+		{1F8F790C-54CB-45A9-90A6-A6090F00077A} = {6FC34FDC-19D8-4BE4-8CDB-E2642DD5B40C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BA290C2-393C-4137-99AB-CA8739B4EFDF}
