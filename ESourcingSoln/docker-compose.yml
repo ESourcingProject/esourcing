@@ -4,6 +4,8 @@ services:
   esourcingdb:
     image: mongo
 
+  esourcingmq:
+    image: rabbitmq:3-management
 
   esourcingsoln.account:
     image: ${DOCKER_REGISTRY-}esourcingsolnaccount

@@ -9,6 +9,13 @@ services:
     ports:
       - "27017:27017"
 
+  esourcingmq:
+    container_name: esourcingmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
   esourcingsoln.account:
     container_name: esourcingaccount
     environment:
@@ -42,6 +49,7 @@ services:
       - "SourcingDatabaseSettings:ConnectionString=mongodb://esourcingdb:27017"
     depends_on:
       - esourcingdb
+      - esourcingmq
     volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
       - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
