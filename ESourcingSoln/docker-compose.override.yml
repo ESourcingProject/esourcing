@@ -8,6 +8,19 @@ services:
       - ${WEBAPP_STORAGE_HOME}/site:/data/db
     ports:
       - "27017:27017"
+
+  esourcingsoln.account:
+    container_name: esourcingaccount
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "AccountDatabaseSettings:ConnectionString=mongodb://esourcingdb:27017"
+    depends_on:
+      - esourcingdb
+    volumes:
+      - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
+    ports:
+      - "8002:80"
         
   esourcingsoln.products:
     container_name: esourcingproducts
