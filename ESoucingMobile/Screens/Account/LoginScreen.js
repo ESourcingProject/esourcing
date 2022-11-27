@@ -1,17 +1,16 @@
 import React,{useState} from 'react'
 import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center } from "native-base";
+import {LoginRequest} from '../../ApiConnection/ApiRequest/AccountRequest'
 import { Alert } from 'react-native';
 
 const LoginScreen = ({navigation}) => {
 
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("admin");
+  const [password, setPassword] = useState("admin");
 
-
-
-  const LoginProcess = () => {
+  const LoginProcess = async () => {
     // TODO: api çağrılıcak
-    if(userName == "admin" && password == "admin"){
+    if(await LoginRequest (userName,password)){
 
       navigation.reset({
         index: 0,
@@ -58,7 +57,7 @@ const LoginScreen = ({navigation}) => {
             color: "indigo.500",
             fontWeight: "medium",
             fontSize: "sm"
-          }} href="#">
+          }} onPress={() => {navigation.navigate("SignUpScreen")}}>
               Kayıt Ol
             </Link>
           </HStack>
