@@ -4,6 +4,13 @@ services:
   esourcingdb:
     image: mongo
 
+
+  esourcingsoln.account:
+    image: ${DOCKER_REGISTRY-}esourcingsolnaccount
+    build:
+      context: .
+      dockerfile: ESourcingSoln.Account/Dockerfile
+
   esourcingsoln.products:
     image: ${DOCKER_REGISTRY-}esourcingsolnproducts
     build:
