@@ -22,9 +22,8 @@ namespace ESourcingSoln.Products.Data
                     Name="Urun 1",
                     Category="Kategori 1",
                     Description = "Açıklama 1",
-                    Price = 10,
                     Summary = "Özet 1",
-                    ImageFile = "product1.jpg"
+                    ImageFile = "product1.jpg",
                 }
             };
         }

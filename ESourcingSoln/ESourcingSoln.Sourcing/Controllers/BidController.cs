@@ -47,5 +47,13 @@ namespace ESourcingSoln.Sourcing.Controllers
             await _repository.Create(bid);
             return CreatedAtRoute("GetBid", new { id = bid.Id }, bid);
         }
+
+
+        [HttpPut]
+        [ProducesResponseType(typeof(Bid), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> UpdateBid([FromBody] Bid bid)
+        {
+            return Ok(await _repository.Update(bid));
+        }
     }
 }

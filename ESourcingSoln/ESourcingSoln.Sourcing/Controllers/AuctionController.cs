@@ -32,6 +32,35 @@ namespace ESourcingSoln.Sourcing.Controllers
             return Ok(auctions);
         }
 
+        [HttpGet("{id:length(24)}", Name = "GetAuction")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Auction>> GetAuction(string id)
+        {
+            var auction = await _repository.GetAuction(id);
+            if (auction == null)
+            {
+                _logger.LogError($"Auction with id : {id}, hasn't been found in database");
+                return NotFound();
+            }
+            return Ok(auction);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.Created)]
+        public async Task<ActionResult<Auction>> CreateAuction([FromBody] Auction auction)
+        {
+            await _repository.Create(auction);
+            return CreatedAtRoute("GetAuction", new { id = auction.Id }, auction);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> UpdateAuction([FromBody] Auction auction)
+        {
+            return Ok(await _repository.Update(auction));
+        }
+
         [HttpPost("TestMQ")]
         public ActionResult<OrderCreateEvent> TestMQ()
         {
