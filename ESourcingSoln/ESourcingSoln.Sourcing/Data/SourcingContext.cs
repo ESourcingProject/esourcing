@@ -13,7 +13,7 @@ namespace ESourcingSoln.Sourcing.Data
             var database = client.GetDatabase(settings.DatabaseName);
 
             Auctions = database.GetCollection<Auction>(nameof(Auction));
-            AuctionContextSeed.SeedData(Auctions);
+            //AuctionContextSeed.SeedData(Auctions);
 
             Bids = database.GetCollection<Bid>(nameof(Bid));
         }

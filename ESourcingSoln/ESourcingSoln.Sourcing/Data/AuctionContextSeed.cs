@@ -20,10 +20,11 @@ namespace ESourcingSoln.Sourcing.Data
                 new Auction()
                 {
                     Name="İhale 1",
-                    Price= 350,
+                    MinPrice= 350,
                     Quantity = 50,
                     IsCompleted = false,
-                    Product = "63678d2aab6559393330c801"
+                    Product = "63678d2aab6559393330c801",
+                    CreatedUser = "system"
                 }
             };
         }

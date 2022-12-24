@@ -13,6 +13,8 @@ namespace ESourcingSoln.Account.Data.Abstraction
             var database = client.GetDatabase(settings.DatabaseName);
 
             Accounts = database.GetCollection<Entities.Account>(settings.CollectionName);
+            AccountContextSeed.SeedData(Accounts);
+
         }
         public IMongoCollection<Entities.Account> Accounts { get; }
     }
