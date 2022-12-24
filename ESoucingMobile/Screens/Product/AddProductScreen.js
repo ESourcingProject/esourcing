@@ -8,7 +8,6 @@ const AddProductScreen = ({navigation}) => {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [summary, setSummary] = useState("");
-    const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -21,8 +20,7 @@ const AddProductScreen = ({navigation}) => {
             "category": category,
             "summary": summary,
             "description": description,
-            "imageFile": "",
-            "price": price
+            "imageFile": ""
         }
 
         let result = await AddProductsRequest(model);
@@ -55,11 +53,6 @@ const AddProductScreen = ({navigation}) => {
         <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
             <Text mx="3"  minW="20%">Ürün Özeti: </Text>
             <Input mx="3" backgroundColor="white" placeholder="Ürün Özeti" w="70%" value={summary} onChangeText = {(val)=> { setSummary(val) }}/>
-        </Box>
-
-        <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
-            <Text mx="3" minW="20%">Ürün Fiyatı: </Text>
-            <Input mx="3" keyboardType="numeric" backgroundColor="white" placeholder="Ürün Fiyatı" w="70%" value={price} onChangeText = {(val)=> { setPrice(val) }} />
         </Box>
 
         <Box m={2}>

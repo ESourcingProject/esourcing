@@ -43,15 +43,7 @@ const ProductItem = ({navigation,product}) => {
                 <Text fontWeight="400">
                     {product.description}
                 </Text>
-                <HStack alignItems="center" space={4} justifyContent="space-between">
-                    <HStack alignItems="center">
-                    <Text color="coolGray.600" _dark={{
-                    color: "warmGray.400"
-                    }} fontWeight="600">
-                        {"Fiyat: " + product.price + " ₺"}
-                    </Text>
-                    </HStack>
-                </HStack>
+
                 </Stack>
             </Box>
             </Box>
