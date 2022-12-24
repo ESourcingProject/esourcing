@@ -36,7 +36,7 @@ const AuctionManagementScreen = ({route,navigation}) => {
             <> 
                 <Box alignItems="center" m="2">
                     {!loading ? 
-                        <Button m="2" minW="95%" onPress={() => {navigation.navigate('AddAuctionScreen')}}>Yeni İhale Oluştur</Button> 
+                        <Button m="2" minW="95%" onPress={() => {navigation.navigate('AddAuctionScreen', {userId : userId})}}>Yeni İhale Oluştur</Button> 
                         : <ActivityIndicator></ActivityIndicator> }
                 </Box>
                 <Box>

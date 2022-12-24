@@ -15,6 +15,23 @@ namespace ESourcingSoln.Sourcing.Repository
         }
         public async Task Create(Bid bid)
         {
+            //var builder = Builders<Bid>.Update;
+            //UpdateResult updateResult = await _context.Bids.UpdateManyAsync(filter: a => a.Statu == BidStatues.Active && a.Auction == bid.Auction, builder.Inc(x => x.Price,0));
+
+            var MatchedData = _context.Bids.Find(a => a.Statu == BidStatues.Active && a.Auction == bid.Auction).ToList();
+
+            if(bid.Price <= MatchedData.Max(x=>x.Price))
+            {
+                throw new Exception("Güncel Tekliften Daha Az Miktarda Bir Teklif Verilemez!");
+            }
+
+
+            foreach (var item in MatchedData)
+            {
+                item.Statu = BidStatues.Cancelled;
+                await _context.Bids.ReplaceOneAsync(filter: a => a.Id == item.Id, replacement: item);
+            }  
+
             await _context.Bids.InsertOneAsync(bid);
         }
 
