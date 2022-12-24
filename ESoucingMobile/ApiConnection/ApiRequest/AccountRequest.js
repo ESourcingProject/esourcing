@@ -6,10 +6,7 @@ export const LoginRequest = async (username,password) => {
     let url = LoginUrl + "?name=" + username + "&password=" + password;
     let result = await GetAsync(url)
 
-    if(result.id != undefined && result.id != null)
-        return true;
-    else 
-        return false;
+    return result;
  }
 
 export const SignUpRequest = async (username,password) => {

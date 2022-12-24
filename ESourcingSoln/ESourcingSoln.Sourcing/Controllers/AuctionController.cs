@@ -1,35 +1,71 @@
 ﻿using ESourcingSoln.Sourcing.Entities;
+using ESourcingSoln.Sourcing.Model;
 using ESourcingSoln.Sourcing.Repository.Interfaces;
 using EventBusMQ.Core;
 using EventBusMQ.Events;
 using EventBusMQ.Producer;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text.Json;
 
 namespace ESourcingSoln.Sourcing.Controllers
 {
     [ApiController,Route("/api/v1/[controller]")]
     public class AuctionController : ControllerBase
     {
-        private readonly IAuctionRepository _repository;
+        private readonly IAuctionRepository _auctionRepository;
+        private readonly IBidRepository _bidRepository;
         private readonly ILogger<AuctionController> _logger;
         private readonly EventBusRabbitMQProducer _eventBus;
+        private readonly IConfiguration _configuration;
 
         public AuctionController(
-            IAuctionRepository repository, 
+            IAuctionRepository auctionRepository, 
+            IBidRepository bidRepository,
             ILogger<AuctionController> logger, 
-            EventBusRabbitMQProducer eventBus)
+            EventBusRabbitMQProducer eventBus,
+            IConfiguration configuration)
         {
-            _repository = repository;
+            _auctionRepository = auctionRepository;
+            _bidRepository = bidRepository;
             _logger = logger;
             _eventBus = eventBus;
+            _configuration = configuration;
         }
 
         [HttpGet, ProducesResponseType(typeof(Auction), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Auction>>> GetAuctions()
         {
-            var auctions = await _repository.GetAuctions();
+            var auctions = await _auctionRepository.GetAuctions();
             return Ok(auctions);
+        }
+        
+        [HttpGet("GetAuctionsWithLastBid/{userId:length(24)}", Name = "GetAuctionsWithLastBid"), ProducesResponseType(typeof(IEnumerable<AuctionBidModel>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<AuctionBidModel>>> GetAuctionsWithLastBid(string userId)
+        {
+            List<AuctionBidModel> response = new List<AuctionBidModel>();
+            var auctions = await _auctionRepository.GetAuctionByUserId(userId);
+            foreach (var auction in auctions)
+            {
+                AuctionBidModel responseItem = new AuctionBidModel();
+                responseItem.Id = auction.Id;
+                responseItem.Name = auction.Name;
+                responseItem.Product = auction.Product;
+                responseItem.Quantity = auction.Quantity;
+                responseItem.MinPrice = auction.MinPrice;
+                responseItem.IsCompleted = auction.IsCompleted;
+                responseItem.CreatedUser = auction.CreatedUser;
+                responseItem.LastBid = (await _bidRepository.GetLastBidForAuction(auction.Id))?.Price;
+
+                string ProductServiceUrl = _configuration.GetValue<string>("ProductServiceUrl");
+                HttpClient client = new HttpClient();
+                var content = await client.GetStringAsync(ProductServiceUrl + auction.Product);
+                ProductModel? jsonContent =  JsonSerializer.Deserialize<ProductModel?>(content);
+
+                responseItem.ProductName = jsonContent?.name;
+                response.Add(responseItem);
+            }
+            return Ok(response);
         }
 
         [HttpGet("{id:length(24)}", Name = "GetAuction")]
@@ -37,7 +73,7 @@ namespace ESourcingSoln.Sourcing.Controllers
         [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Auction>> GetAuction(string id)
         {
-            var auction = await _repository.GetAuction(id);
+            var auction = await _auctionRepository.GetAuction(id);
             if (auction == null)
             {
                 _logger.LogError($"Auction with id : {id}, hasn't been found in database");
@@ -50,7 +86,7 @@ namespace ESourcingSoln.Sourcing.Controllers
         [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.Created)]
         public async Task<ActionResult<Auction>> CreateAuction([FromBody] Auction auction)
         {
-            await _repository.Create(auction);
+            await _auctionRepository.Create(auction);
             return CreatedAtRoute("GetAuction", new { id = auction.Id }, auction);
         }
 
@@ -58,7 +94,7 @@ namespace ESourcingSoln.Sourcing.Controllers
         [ProducesResponseType(typeof(Auction), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> UpdateAuction([FromBody] Auction auction)
         {
-            return Ok(await _repository.Update(auction));
+            return Ok(await _auctionRepository.Update(auction));
         }
 
         [HttpPost("TestMQ")]

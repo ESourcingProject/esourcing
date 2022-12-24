@@ -9,17 +9,16 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState("admin");
 
   const LoginProcess = async () => {
-    // TODO: api çağrılıcak
-    if(await LoginRequest (userName,password)){
+
+    let result = await LoginRequest (userName,password);
+    if(result.id != undefined && result.id != null)
 
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Home' }],
+        routes: [{ name: 'Home', params: {userId : result.id} }],
       });
-    }
-    else {
-      Alert.alert("Hatalı","Kullanıcı Adı veya Şifre Hatalı! ")
-    }
+    else 
+    Alert.alert("Hatalı","Kullanıcı Adı veya Şifre Hatalı! ")
   }
   
   return <Center w="100%">

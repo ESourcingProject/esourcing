@@ -31,6 +31,10 @@ namespace ESourcingSoln.Sourcing.Repository
             return await _context.Bids.Find(a => a.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task<Bid> GetLastBidForAuction(string auctionId)
+        {
+            return await _context.Bids.Find(a => a.Auction == auctionId && a.Statu == BidStatues.Active).FirstOrDefaultAsync();
+        }
         public async Task<IEnumerable<Bid>> GetBids()
         {
             return await _context.Bids.Find(a => true).ToListAsync();

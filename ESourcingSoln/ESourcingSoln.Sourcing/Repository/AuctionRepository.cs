@@ -2,6 +2,7 @@
 using ESourcingSoln.Sourcing.Entities;
 using ESourcingSoln.Sourcing.Repository.Interfaces;
 using MongoDB.Driver;
+using Polly;
 using System.Xml.Linq;
 
 namespace ESourcingSoln.Sourcing.Repository
@@ -36,6 +37,14 @@ namespace ESourcingSoln.Sourcing.Repository
         public async Task<IEnumerable<Auction>> GetAuctions()
         {
             return await _context.Auctions.Find(a => true).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Auction>> GetAuctionByUserId(string userId)
+        {
+            //var filter = Builders<Auction>.Filter.ElemMatch(m => m.CreatedUser, userId);
+            //return await _context.Auctions.Find(filter).ToListAsync();
+            return await _context.Auctions.Find(a => a.CreatedUser == userId).ToListAsync();
+
         }
 
         public async Task<IEnumerable<Auction>> GetAuctionsByName(string name)
