@@ -9,7 +9,6 @@ const EditProductScreen = ({navigation,route}) => {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [summary, setSummary] = useState("");
-    const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -19,7 +18,6 @@ const EditProductScreen = ({navigation,route}) => {
           await setName(product.name)
           await setCategory(product.category)
           await setSummary(product.summary)
-          await setPrice(product.price.toString())
           await setDescription(product.description)
         }
         fetchProduct();
@@ -33,8 +31,7 @@ const EditProductScreen = ({navigation,route}) => {
             "category": category,
             "summary": summary,
             "description": description,
-            "imageFile": "",
-            "price": price
+            "imageFile": ""
         }
         let result = await EditProductsRequest(model);
         try{
@@ -67,14 +64,9 @@ const EditProductScreen = ({navigation,route}) => {
             <Input mx="3" backgroundColor="white" placeholder="Ürün Özeti" w="70%" value={summary} onChangeText = {(val)=> { setSummary(val) }}/>
         </Box>
 
-        <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
-            <Text mx="3" minW="20%">Ürün Fiyatı: </Text>
-            <Input mx="3" keyboardType="numeric" backgroundColor="white" placeholder="Ürün Fiyatı" w="70%" value={price} onChangeText = {(val)=> { setPrice(val) }} />
-        </Box>
-
         <Box m={2}>
             <Text mx="3" minW="20%">Ürün Açıklaması: </Text>
-            <TextArea mx="3" backgroundColor="white" placeholder="Ürün Fiyatı" w="96%" value={description} onChangeText = {(val)=> { setDescription(val) }} />
+            <TextArea mx="3" backgroundColor="white" placeholder="Ürün Açıklaması" w="96%" value={description} onChangeText = {(val)=> { setDescription(val) }} />
         </Box>
 
         <Box alignItems="center" m="2">
