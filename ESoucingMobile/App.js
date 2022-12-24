@@ -8,6 +8,8 @@ import SignUpScreen from './Screens/Account/SignUpScreen'
 import ProductsScreen from './Screens/Product/ProductsScreen'
 import AddProductScreen from './Screens/Product/AddProductScreen'
 import EditProductScreen from './Screens/Product/EditProductScreen'
+import AuctionManagementScreen from './Screens/AuctionManagement/AuctionManagementScreen'
+import AddAuctionScreen from './Screens/AuctionManagement/AddAuctionScreen'
 
 
 
@@ -23,6 +25,8 @@ const App = () => {
             <Stack.Screen name="ProductsScreen" component={ProductsScreen} options={{title: 'Ürünler'}}/>
             <Stack.Screen name="AddProductScreen" component={AddProductScreen} options={{title: 'Ürün Ekle'}}/>
             <Stack.Screen name="EditProductScreen" component={EditProductScreen} options={{title: 'Ürün Düzenle'}}/>
+            <Stack.Screen name="AuctionManagementScreen" component={AuctionManagementScreen} options={{title: 'İhale Yönetimi'}}/>
+            <Stack.Screen name="AddAuctionScreen" component={AddAuctionScreen} options={{title: 'İhale Oluştur'}}/>
           </Stack.Navigator>
         </NavigationContainer>
     </NativeBaseProvider>

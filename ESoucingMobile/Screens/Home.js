@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { Button, View, Text } from 'react-native';
 
-const Home = ({ navigation }) => {
+const Home = ({ route,navigation }) => {
+  const { userId } = route.params;
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View >
       <Text>Home Screen</Text>
       <Button
         title="Go to Products"
-        onPress={() => navigation.navigate('ProductsScreen')}
+        onPress={() => navigation.navigate('ProductsScreen', {userId : userId})}
+      />
+      <Button style={{ marginTop: 15 }}
+        title="Go to Auction"
+        onPress={() => navigation.navigate('AuctionManagementScreen', {userId : userId} )}
       />
     </View>
   );

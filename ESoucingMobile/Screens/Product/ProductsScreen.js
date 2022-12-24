@@ -17,8 +17,8 @@ const ProductsScreen = ({navigation}) => {
   return (
       <ScrollView>
         <Box alignItems="center" m="2">
-          <Button minW="90%" color="black" backgroundColor="blueGray.400" onPress={() => {navigation.navigate('AddProductScreen')}}>
-            <Text>Yeni Ürün Ekle</Text>
+          <Button minW="90%" onPress={() => {navigation.navigate('AddProductScreen')}}>
+            Yeni Ürün Ekle
           </Button>
         </Box>
       {

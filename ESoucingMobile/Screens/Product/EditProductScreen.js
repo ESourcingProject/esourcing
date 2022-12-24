@@ -71,8 +71,8 @@ const EditProductScreen = ({navigation,route}) => {
 
         <Box alignItems="center" m="2">
            {!loading ? 
-          <Button minW="95%" color="black" backgroundColor="blueGray.400" onPress={async () => {await EditProduct()}}>
-            <Text>Güncelle</Text>
+          <Button minW="95%"  onPress={async () => {await EditProduct()}}>
+            Güncelle
           </Button> : <ActivityIndicator></ActivityIndicator> }
         </Box>
     </>

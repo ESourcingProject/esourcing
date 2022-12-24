@@ -62,8 +62,8 @@ const AddProductScreen = ({navigation}) => {
 
         <Box alignItems="center" m="2">
            {!loading ? 
-          <Button minW="95%" color="black" backgroundColor="blueGray.400" onPress={async () => {await SaveProduct()}}>
-            <Text>Kaydet</Text>
+          <Button minW="95%" onPress={async () => {await SaveProduct()}}>
+              Kaydet
           </Button> : <ActivityIndicator></ActivityIndicator> }
         </Box>
     </>
