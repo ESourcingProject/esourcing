@@ -39,7 +39,35 @@ namespace ESourcingSoln.Sourcing.Controllers
             var auctions = await _auctionRepository.GetAuctions();
             return Ok(auctions);
         }
-        
+
+        [HttpGet("GetActiveAuctions", Name = "GetActiveAuctions"), ProducesResponseType(typeof(IEnumerable<AuctionBidModel>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<AuctionBidModel>>> GetActiveAuctions()
+        {
+            List<AuctionBidModel> response = new List<AuctionBidModel>();
+            var auctions = await _auctionRepository.GetActiveAuctions();
+            foreach (var auction in auctions)
+            {
+                AuctionBidModel responseItem = new AuctionBidModel();
+                responseItem.Id = auction.Id;
+                responseItem.Name = auction.Name;
+                responseItem.Product = auction.Product;
+                responseItem.Quantity = auction.Quantity;
+                responseItem.MinPrice = auction.MinPrice;
+                responseItem.IsCompleted = auction.IsCompleted;
+                responseItem.CreatedUser = auction.CreatedUser;
+                responseItem.LastBid = (await _bidRepository.GetLastBidForAuction(auction.Id))?.Price;
+
+                string ProductServiceUrl = _configuration.GetValue<string>("ProductServiceUrl");
+                HttpClient client = new HttpClient();
+                var content = await client.GetStringAsync(ProductServiceUrl + auction.Product);
+                ProductModel? jsonContent = JsonSerializer.Deserialize<ProductModel?>(content);
+
+                responseItem.ProductName = jsonContent?.name;
+                response.Add(responseItem);
+            }
+            return Ok(response);
+        }
+
         [HttpGet("GetAuctionsWithLastBid/{userId:length(24)}", Name = "GetAuctionsWithLastBid"), ProducesResponseType(typeof(IEnumerable<AuctionBidModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<AuctionBidModel>>> GetAuctionsWithLastBid(string userId)
         {

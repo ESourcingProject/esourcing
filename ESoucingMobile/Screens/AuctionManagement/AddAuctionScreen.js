@@ -3,8 +3,8 @@ import {Box,Input, Text, Button } from "native-base"
 import {AddAuctionsRequest} from '../../ApiConnection/ApiRequest/ActuionRequest'
 import { ActivityIndicator, Alert } from 'react-native';
 
-const AddAuctionScreen = ({navigation}) => {
-
+const AddAuctionScreen = ({route,navigation}) => {
+    const { userId } = route.params;
     const [name, setName] = useState("");
     const [product, setProduct] = useState("");
     const [quantity, setQuantity] = useState("");
@@ -21,7 +21,7 @@ const AddAuctionScreen = ({navigation}) => {
             "quantity": quantity,
             "minPrice": minPrice,
             "isCompleted": false,
-            "createdUser": "63a74178d561f962bb8da334"
+            "createdUser": userId
         }
 
         let result = await AddAuctionsRequest(model);
@@ -29,7 +29,7 @@ const AddAuctionScreen = ({navigation}) => {
         try{
             if(result.id != ""){
                 Alert.alert("Başarılı","Kayıt Etme işleminiz gerçekleşmiştir.", [
-                    { text: "Tamam", onPress: () => navigation.navigate("AuctionManagementScreen") }
+                    { text: "Tamam", onPress: () => navigation.navigate("AuctionManagementScreen", {userId : userId}) }
                   ])
             }
         }catch{

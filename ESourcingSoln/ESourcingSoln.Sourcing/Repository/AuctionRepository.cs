@@ -39,6 +39,11 @@ namespace ESourcingSoln.Sourcing.Repository
             return await _context.Auctions.Find(a => true).ToListAsync();
         }
 
+        public async Task<IEnumerable<Auction>> GetActiveAuctions()
+        {
+            return await _context.Auctions.Find(a => a.IsCompleted == false).ToListAsync();
+        }
+
         public async Task<IEnumerable<Auction>> GetAuctionByUserId(string userId)
         {
             //var filter = Builders<Auction>.Filter.ElemMatch(m => m.CreatedUser, userId);
