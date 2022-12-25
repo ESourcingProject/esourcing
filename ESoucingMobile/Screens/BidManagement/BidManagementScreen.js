@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Box, FlatList, Heading } from "native-base";
 import { GetActiveAuctionsRequest } from '../../ApiConnection/ApiRequest/ActuionRequest'
 import AuctionItem from "../../Components/AuctionItem";
+import { ScrollView } from 'react-native';
 
 const BidManagementScreen = ({route,navigation}) => {
     const { userId } = route.params;
@@ -16,7 +17,7 @@ const BidManagementScreen = ({route,navigation}) => {
     },[activeAuctions]);
 
     return (
-            <> 
+            <ScrollView> 
                 <Box>
                     <Heading fontSize="lg" p="2" pb="2">
                         Aktif İhaleler
@@ -25,7 +26,7 @@ const BidManagementScreen = ({route,navigation}) => {
                     item
                     }) => <AuctionItem key={item.id} item = {item} userId = {userId}/>} keyExtractor={item => item.id} />
                 </Box>
-            </>
+            </ScrollView>
     )
 }
 
