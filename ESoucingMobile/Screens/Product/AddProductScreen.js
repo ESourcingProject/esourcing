@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import {Box,Input, Text,TextArea,Button } from "native-base"
+import {Box,Input, Text,TextArea,Button, HStack } from "native-base"
+import { ActivityIndicator, Alert, Image } from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {AddProductsRequest} from '../../ApiConnection/ApiRequest/ProductRequest'
-import { ActivityIndicator, Alert } from 'react-native';
+
 
 const AddProductScreen = ({navigation}) => {
 
@@ -9,10 +11,16 @@ const AddProductScreen = ({navigation}) => {
     const [category, setCategory] = useState("");
     const [summary, setSummary] = useState("");
     const [description, setDescription] = useState("");
+    const [imageFile,setImageFile] = useState("");
     const [loading, setLoading] = useState(false);
 
 
     const SaveProduct =  async () => {
+
+        if(imageFile == ""){
+            Alert.alert("Hata","Lütfen Fotoğraf Çekiniz veya Seçiniz.")
+            return;
+        }
         await setLoading(true);
         let model = {
             "id": "",
@@ -20,7 +28,7 @@ const AddProductScreen = ({navigation}) => {
             "category": category,
             "summary": summary,
             "description": description,
-            "imageFile": ""
+            "imageFile": imageFile
         }
 
         let result = await AddProductsRequest(model);
@@ -57,7 +65,32 @@ const AddProductScreen = ({navigation}) => {
 
         <Box m={2}>
             <Text mx="3" minW="20%">Ürün Açıklaması: </Text>
-            <TextArea mx="3" backgroundColor="white" placeholder="Ürün Fiyatı" w="96%" value={description} onChangeText = {(val)=> { setDescription(val) }} />
+            <TextArea mx="3" backgroundColor="white" placeholder="Ürün Açıklaması" w="96%" value={description} onChangeText = {(val)=> { setDescription(val) }} />
+        </Box>
+
+        <Box alignItems="center" m="2">
+            <HStack space={1}>
+                <Button minW="45%" onPress={() => {launchCamera({maxWidth:320,maxHeight:160,includeBase64: true,quality: 0.5,mediaType:"photo"},(photo)=> {
+                    setImageFile(photo.assets[0].base64);
+                })}}>
+                    Fotoğrak Çek
+                </Button> 
+                <Button minW="45%" onPress={() => {launchImageLibrary({maxWidth:320,maxHeight:160,includeBase64: true,quality: 0.5,mediaType:"photo"},(photo)=> {
+                    setImageFile(photo.assets[0].base64);
+                })}}>
+                    Galeriden Seç
+                </Button> 
+            </HStack>
+          
+        </Box>
+        <Box alignItems="center" m="2">
+            {imageFile != "" &&
+                <Image 
+                    style={{width: 320, height: 160, resizeMode: "contain", borderWidth: 1, borderColor: 'red'}}
+                    source={{uri: `data:image/jpeg;base64,${imageFile}`}} 
+                    alt="image" 
+                /> 
+            }
         </Box>
 
         <Box alignItems="center" m="2">

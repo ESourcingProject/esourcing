@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HStack, Button,Icon } from 'native-base';
+import { Stack,HStack, Button,Icon } from 'native-base';
 import { Ionicons,MaterialIcons } from "react-native-svg";
 
 const Home = ({ route,navigation }) => {
@@ -19,6 +19,16 @@ const Home = ({ route,navigation }) => {
         İhale Teklif
       </Button>
     </HStack>
+
+    <Stack flex={1} flexDirection={'row'} alignItems={'flex-end'}>
+      <Button colorScheme="secondary" m="3" width="96" maxHeight="12" onPress={() => navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }] })} leftIcon={<Icon as={Ionicons} name="cloud-upload-outline" size="md" />}>
+        Çıkış Yap
+      </Button>
+    </Stack>
+
+
     </>
     
   )}

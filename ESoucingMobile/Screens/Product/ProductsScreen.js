@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView,Text } from 'react-native'
+import { ScrollView,Image } from 'react-native'
 import {Button,Box} from 'native-base'
 import {GetProductsRequest} from '../../ApiConnection/ApiRequest/ProductRequest'
 import ProductItem from '../../Components/ProductItem'

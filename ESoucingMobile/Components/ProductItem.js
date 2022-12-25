@@ -36,9 +36,11 @@ const ProductItem = ({navigation,product}) => {
                     </Text>
                 </Stack>
                     <AspectRatio w="100%" ratio={16 / 9}>
+                        {product.imageFile != "" ?
+                    <Image source={{uri: `data:image/jpeg;base64,${product.imageFile}`}} alt="image" /> :
                         <Image source={{
                         uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
-                    }} alt="image" />
+                    }} alt="image" />}
                     </AspectRatio>
                 <Text fontWeight="400">
                     {product.description}
