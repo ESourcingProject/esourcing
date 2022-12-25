@@ -10,6 +10,7 @@ import AddProductScreen from './Screens/Product/AddProductScreen'
 import EditProductScreen from './Screens/Product/EditProductScreen'
 import AuctionManagementScreen from './Screens/AuctionManagement/AuctionManagementScreen'
 import AddAuctionScreen from './Screens/AuctionManagement/AddAuctionScreen'
+import BidManagementScreen from './Screens/BidManagement/BidManagementScreen'
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
             <Stack.Screen name="EditProductScreen" component={EditProductScreen} options={{title: 'Ürün Düzenle'}}/>
             <Stack.Screen name="AuctionManagementScreen" component={AuctionManagementScreen} options={{title: 'İhale Yönetimi'}}/>
             <Stack.Screen name="AddAuctionScreen" component={AddAuctionScreen} options={{title: 'İhale Oluştur'}}/>
+            <Stack.Screen name="BidManagementScreen" component={BidManagementScreen} options={{title: 'Teklif Yönetimi'}}/>
           </Stack.Navigator>
         </NavigationContainer>
     </NativeBaseProvider>
