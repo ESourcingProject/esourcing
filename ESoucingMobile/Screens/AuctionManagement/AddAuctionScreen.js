@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import {Box,Input, Text, Button } from "native-base"
-import {AddAuctionsRequest} from '../../ApiConnection/ApiRequest/ActuionRequest'
+import React, { useState,useEffect } from 'react'
 import { ActivityIndicator, Alert } from 'react-native';
+import {Box,Input, Text, Button, Select } from "native-base"
+import {AddAuctionsRequest} from '../../ApiConnection/ApiRequest/ActuionRequest'
+import {GetProductsRequest} from '../../ApiConnection/ApiRequest/ProductRequest'
 
 const AddAuctionScreen = ({route,navigation}) => {
     const { userId } = route.params;
@@ -10,6 +11,14 @@ const AddAuctionScreen = ({route,navigation}) => {
     const [quantity, setQuantity] = useState("");
     const [minPrice, setMinPrice] = useState("");
     const [loading, setLoading] = useState(false);
+    const [products,setProducts] = useState([]);
+
+    useEffect(() => {
+        fetchProducts = async () => {
+          await setProducts(await GetProductsRequest())
+        }
+        fetchProducts();
+      },[products]);
 
 
     const SaveAuction =  async () => {
@@ -48,7 +57,13 @@ const AddAuctionScreen = ({route,navigation}) => {
 
         <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
             <Text mx="3"  minW="20%">Ürün: </Text>
-            <Input mx="3" backgroundColor="white" placeholder="Ürün" w="70%" value={product} onChangeText = {(val)=> { setProduct(val) }} />
+            <Select selectedValue={product} mx="3" backgroundColor="white"  minWidth="75%" accessibilityLabel="Ürün Seçiniz" placeholder="Ürün Seçiniz" _selectedItem={{
+                bg: "teal.600"
+            }} mt={1} onValueChange={val => setProduct(val)}>
+                { products.map((product) => {
+                    return <Select.Item label={product.name} value={product.id} />  })
+                }
+            </Select>
         </Box>
 
         <Box alignItems="center" m={2} style={{flexDirection: "row"}}>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect,ActivityIndicator } from 'react'
-import { View, Text, Button, Box, FlatList, Heading, HStack, VStack, Spacer } from "native-base";
-import { Alert } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { ScrollView,Alert,ActivityIndicator } from 'react-native';
+import { Text, Button, Box, FlatList, Heading, HStack, VStack, Spacer } from "native-base";
 import {GetAuctionsWithLastBidRequest, EditAuctionsRequest} from '../../ApiConnection/ApiRequest/ActuionRequest'
 
 const AuctionManagementScreen = ({route,navigation}) => {
@@ -21,9 +21,7 @@ const AuctionManagementScreen = ({route,navigation}) => {
 
         try{
             if(result.id != ""){
-                Alert.alert("Başarılı","İhale Sonlandırılmıştır.", [
-                    { text: "Tamam", onPress: () => navigation.navigate("AuctionManagementScreen") }
-                  ])
+                Alert.alert("Başarılı","İhale Sonlandırılmıştır.")
             }
         }catch{
             Alert.alert("Hata","Beklenmedik bir hata ile karşılaşıldı.")
@@ -33,7 +31,7 @@ const AuctionManagementScreen = ({route,navigation}) => {
     }
 
     return (
-            <> 
+            <ScrollView> 
                 <Box alignItems="center" m="2">
                     {!loading ? 
                         <Button m="2" minW="95%" onPress={() => {navigation.navigate('AddAuctionScreen', {userId : userId})}}>Yeni İhale Oluştur</Button> 
@@ -73,7 +71,7 @@ const AuctionManagementScreen = ({route,navigation}) => {
                             </HStack>
                         </Box>} keyExtractor={item => item.id} />
                 </Box>
-            </>
+            </ScrollView>
     )
 }
 

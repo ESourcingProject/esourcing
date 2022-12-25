@@ -20,7 +20,7 @@ const App = () => {
     <NativeBaseProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="LoginScreen">
-            <Stack.Screen name="Home" component={Home} options={{headerBackVisible: false}} />
+            <Stack.Screen name="Home" component={Home} options={{title: 'Ana Sayfa',headerBackVisible: false}} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{title: 'Giriş Yap'}}/>
             <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{title: 'Kayıt Ol'}}/>
             <Stack.Screen name="ProductsScreen" component={ProductsScreen} options={{title: 'Ürünler'}}/>
