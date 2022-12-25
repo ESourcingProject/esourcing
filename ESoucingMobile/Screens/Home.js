@@ -15,7 +15,7 @@ const Home = ({ route,navigation }) => {
       </Button>
     </HStack>
     <HStack space={1}  mt="2">
-      <Button ml="3" minWidth="48" minHeight="24" leftIcon={<Icon as={Ionicons} name="cloud-upload-outline" size="md" />}>
+      <Button ml="3" minWidth="48" minHeight="24" onPress={() => navigation.navigate('BidManagementScreen', {userId : userId} )} leftIcon={<Icon as={Ionicons} name="cloud-upload-outline" size="md" />}>
         İhale Teklif
       </Button>
     </HStack>

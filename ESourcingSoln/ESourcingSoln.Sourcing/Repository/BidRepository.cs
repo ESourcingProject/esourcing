@@ -20,7 +20,15 @@ namespace ESourcingSoln.Sourcing.Repository
 
             var MatchedData = _context.Bids.Find(a => a.Statu == BidStatues.Active && a.Auction == bid.Auction).ToList();
 
-            if(bid.Price <= MatchedData.Max(x=>x.Price))
+
+            decimal maxBid = 0;
+
+            if (MatchedData.Count > 0)
+            {
+                maxBid = MatchedData.Max(x => x.Price);
+            }
+
+            if (bid.Price <= maxBid)
             {
                 throw new Exception("Güncel Tekliften Daha Az Miktarda Bir Teklif Verilemez!");
             }

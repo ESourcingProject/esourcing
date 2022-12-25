@@ -53,12 +53,12 @@ const AddAuctionScreen = ({route,navigation}) => {
 
         <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
             <Text mx="3"  minW="20%">Adet: </Text>
-            <Input mx="3" backgroundColor="white" placeholder="Adet" w="70%" value={quantity} onChangeText = {(val)=> { setQuantity(val) }}/>
+            <Input mx="3" backgroundColor="white" placeholder="Adet" w="70%" value={quantity} keyboardType="numeric" onChangeText = {(val)=> { setQuantity(val) }}/>
         </Box>
 
         <Box alignItems="center" m={2} style={{flexDirection: "row"}}>
             <Text mx="3"  minW="20%">Min Fiyat: </Text>
-            <Input mx="3" backgroundColor="white" placeholder="Başlangıç Fiyatı" w="70%" value={minPrice} onChangeText = {(val)=> { setMinPrice(val) }}/>
+            <Input mx="3" backgroundColor="white" placeholder="Başlangıç Fiyatı" w="70%" value={minPrice} keyboardType="numeric" onChangeText = {(val)=> { setMinPrice(val) }}/>
         </Box>
 
         <Box alignItems="center" m="2">
